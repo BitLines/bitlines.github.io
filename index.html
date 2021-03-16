@@ -26,20 +26,12 @@ description: "Thinking will not overcome fear but action will."
 {% endfor %}
 
 <!-- Category -->
-{% for cat in site.category-list %}
-### {{ cat }}
-<ul>
-  {% for page in site.pages %}
-    {% if page.resource == true %}
-      {% for pc in page.categories %}
-        {% if pc == cat %}
-          <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-        {% endif %}   <!-- cat-match-p -->
-      {% endfor %}  <!-- page-category -->
-    {% endif %}   <!-- resource-p -->
-  {% endfor %}  <!-- page -->
-</ul>
-{% endfor %}  <!-- cat -->
+{% for category in site.category-list %}
+    <li>{{category[0]}}({{category | last | size}})</li>
+        {% for post in category[1] %}
+        <p><a href="{{post.url}}">{{post.title}}</a></p>
+    {% endfor %}
+{% endfor %}
 
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}
