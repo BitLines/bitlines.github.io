@@ -1,7 +1,7 @@
 # Site settings
 title: BitLines' Blog
 SEOTitle: 梁忠平的博客 | BitLines' Blog
-header-img: img/post-bg-desk.jpg
+header-img: img/zhongping_01.jpg
 email: 304173273@qq.com
 description: "一枚程序员."
 keyword: "BitLines, 梁忠平的博客, zhongping, 梁忠平, MachineLearning"
@@ -12,7 +12,7 @@ github_repo: "https://github.com/BitLines/bitlines.github.io" # you code reposit
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Goals determine what you going to be!"
-sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/zhongping_01.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
