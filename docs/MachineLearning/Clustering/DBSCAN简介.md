@@ -6,9 +6,6 @@ date:       2021-03-16
 author:     BitLines
 header-img: img/post-bg-blog.jpeg
 catalog: true
-categories:
-    - MachineLearning
-    - Clustring
 tags:
     - 聚类算法
     - 机器学习
