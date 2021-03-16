@@ -8,7 +8,7 @@ keyword: "BitLines, 梁忠平的博客, zhongping, 梁忠平, MachineLearning"
 url: "https://bitlines.github.io/"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/BitLines/bitlines.github.io" # you code repository
-category-list: ['MachineLearning', 'NaturalLanguageProcessing', 'Clustering', 'Python', 'ReinforcementLearning']
+# category-list: ['MachineLearning', 'NaturalLanguageProcessing', 'Clustering', 'Python', 'ReinforcementLearning']
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
