@@ -2,7 +2,7 @@
 layout:     post
 title:      BERT 介绍
 subtitle:   'Pre-training of Deep Bidirectional Transformers for Language Understanding'
-date:       2021-03-16
+date:       2021-03-01
 author:     BitLines
 header-img: img/post-bg-blog.jpeg
 catalog: true
