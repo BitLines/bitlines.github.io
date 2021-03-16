@@ -25,14 +25,6 @@ description: "Thinking will not overcome fear but action will."
 <hr>
 {% endfor %}
 
-<!-- Category -->
-{% for category in site.category-list %}
-    <li>{{category[0]}}({{category | last | size}})</li>
-        {% for post in category[1] %}
-        <p><a href="{{post.url}}">{{post.title}}</a></p>
-    {% endfor %}
-{% endfor %}
-
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}
 <ul class="pager">
