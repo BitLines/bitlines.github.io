@@ -84,7 +84,8 @@ def main():
         if not date:
             remain_docs.append(doc)
         src = f'../_docs/{doc}'
-        dst = os.path.join(this_dir, post_dir, f'{date}-{filename}')
+        post_name = doc.replace('/', '-')
+        dst = os.path.join(this_dir, post_dir, f'{date}-{post_name}')
         logger.info(f'make symlink {src} => {dst}')
         os.symlink(src, dst)
 
