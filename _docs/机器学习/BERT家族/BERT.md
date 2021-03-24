@@ -6,9 +6,6 @@ date:       2021-03-01
 author:     BitLines
 header-img: img/post-bg-blog.jpeg
 catalog: true
-categories:
-    - MachineLearning
-    - NaturalLanguageProcessing
 tags:
     - 机器学习
     - 自然语言处理

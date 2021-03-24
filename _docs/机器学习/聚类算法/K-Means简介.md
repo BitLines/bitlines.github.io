@@ -33,5 +33,32 @@ step 2. 村民就近选择牧师听课，4个牧师可以把空间划分为4个�
 回归到 K-means，其算法步骤可以描述为：
 > 1. 选择初始化的 $k$ 个样本作为初始聚类中心  ；
 > 2. 针对数据集中每个样本 $p$ 计算它到 $k$ 个聚类中心的距离并将其分到距离最小的聚类中心所对应的类中；
-> 3. 针对每个类别 $ c $，重新计算它的聚类中心 $c'$（即属于该类的所有样本的质心）；
+> 3. 针对每个类别 $c$，重新计算它的聚类中心 $c'$（即属于该类的所有样本的质心）；
 > 4. 重复上面 2 3 两个步骤，直到达到某个中止条件（迭代次数、最小误差变化等）。
+
+
+```Python
+# 这里给大家演示一个使用 sklearn 包中的 K-Means 的例子。
+# 先安装相关的 pip 包 ``pip install sklearn matplotlib numpy``
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import datasets
+from sklearn.cluster import KMeans
+
+# 数据集构造，两个环形
+X1, y1 = datasets.make_circles(n_samples=5000, factor=.6, noise=.05)
+X2, y2 = datasets.make_blobs(n_samples=1000, n_features=2, centers=[[1.2, 1.2]], cluster_std=[[.1]], random_state=9)
+
+X = np.concatenate((X1, X2))
+plt.scatter(X[:, 0], X[:, 1], marker='o')
+plt.show()
+
+# 使用 k-means 聚类
+y_pred = KMeans(n_clusters=3).fit_predict(X)
+plt.scatter(X[:, 0], X[:, 1], c=y_pred)
+plt.show()
+```
+
+运行效果如下图  
+![image](https://user-images.githubusercontent.com/80689631/112314012-7ac30c80-8ce3-11eb-908f-2b131abe0455.png)
