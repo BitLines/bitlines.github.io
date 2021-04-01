@@ -9,6 +9,9 @@ layout: default
 <!-- Post Header -->
 {% include intro-header.html type='post' %}
 
+<!-- add support for mathjax by voleking-->
+{% include mathjax.html %}
+
 <!-- Post Content -->
 <article>
     <div class="container">
@@ -122,10 +125,6 @@ layout: default
 </script>
 
 
-<!-- add support for mathjax by voleking-->
-{% if page.mathjax %}
-  {% include mathjax_support.html %}
-{% endif %}
 
 {% if site.netease_comment %}
 <!-- 网易云跟帖JS代码 start -->
