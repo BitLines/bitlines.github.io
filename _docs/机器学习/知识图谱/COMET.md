@@ -36,7 +36,10 @@ COMET 全称 Commonsense Transformers for Automatic Knowledge Graph Construction
 
 训练目标
 训练目标是给定 关系三元组中的 $[X^s,X^r]$ ，使用文本生成预测 $X^o$。
-$$\mathcal{L}=-\sum_{t=|s|+|r|}^{|s|+|r|+|o|}{log P(x_t|x_{<t})}$$
+
+$$
+\mathcal{L}=-\sum_{t=|s|+|r|}^{|s|+|r|+|o|}{log P(x_t|x_{<t})}
+$$
 
 
 ## 实验结果

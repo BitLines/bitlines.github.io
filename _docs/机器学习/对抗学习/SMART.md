@@ -32,23 +32,50 @@ SMART 的全称是 Robust and Efficient Fine-Tuning for Pre-trained Natural Lang
 
 ### 诱导平滑对抗正则化 Smoothness-Inducing Adversarial Regularization
 给定一个模型$f(·;\theta)$ 和 $n$ 个样本的数据集 $\{(x_i, y_i)\}_{i=1}^{n}$，其中 $x_i$ 表示第 i 个样本的输入 embedding，$y_i$表示类标。诱导平滑对抗正则化的fine-tune目标是:
-$$min_{\theta}F(\theta)=L(\theta)+\lambda_sR_s(\theta),$$
-其中 $\lambda_s$是超参，$L(\theta)$ 是学习目标的损失函数  
-$$L(\theta)=\frac{1}{n}\sum_{i=1}^{n}\ell(f(x_i;\theta), y_i)$$
+
+$$
+min_{\theta}F(\theta)=L(\theta)+\lambda_sR_s(\theta),
+$$
+
+其中 $\lambda_s$是超参，$L(\theta)$ 是学习目标的损失函数
+
+$$
+L(\theta)=\frac{1}{n}\sum_{i=1}^{n}\ell(f(x_i;\theta), y_i)
+$$
+
 其中 $\ell$是损失函数视具体任务而定。$R_s(\theta)$ 就是 Smoothness-Inducing Adversarial Regularization：
-$$R_s(\theta)=\frac{1}{n}\sum_{i=1}^{n}\max_{||\tilde{x_i}-x_i||\le\epsilon}\ell_s(f(\tilde{x_i};\theta),f(x_i;\theta))$$
+
+$$
+R_s(\theta)=\frac{1}{n}\sum_{i=1}^{n}\max_{||\tilde{x_i}-x_i||\le\epsilon}\ell_s(f(\tilde{x_i};\theta),f(x_i;\theta))
+$$
+
 其中 $\epsilon$是超参，一般来说 $f(·;\theta)$ 是输出概率分布，$\ell_s$是KL散度
-$$\ell_s(P,Q)=D_{KL}(P||Q)+D_{KL}(Q||P)$$
+
+$$
+\ell_s(P,Q)=D_{KL}(P||Q)+D_{KL}(Q||P)
+$$
 
 从 $R_s(\theta)$ 上来看，需要在$x_i$附近寻找一个 $\tilde{x_i}$，使得交叉熵最大。 $R_s(\theta)$其实就是一个生成器，来在原始输入 $x_i$ 附近找一个最能使分类器认不出的样本 $\tilde{x_i}$。因为新输入与原始输入距离很近，所以假设认为是两个样本的类标是一致的。
 
 ### 布雷格曼最近点优化 Bregman Proximal Point Optimization
 为了更好的利用诱导平滑对抗正则化，在优化目标 $F_{\theta}$时，使用布雷格曼最近点优化方法。为了防止在上面的对抗方法中，模型侵略性的更新（理解侵略性的更新，应该是模型学着学着跑偏了），使用置信区间方法在模型每次迭代的时候加一个强约束。形式化描述为：
-$$\theta_{t+1}=argmin_{\theta}F(\theta)+\mu D_{Breg}(\theta, \theta_t)$$
+
+$$
+\theta_{t+1}=argmin_{\theta}F(\theta)+\mu D_{Breg}(\theta, \theta_t)
+$$
+
 其中 $\mu$ 是超参，$D_{Breg}$ 是布雷格曼差异，定义为：
-$$D_{Breg}(\theta, \theta_t)=\frac{1}{n}\sum_{i=1}^{n}\ell_s(f(x_i;\theta),f(x_i;\theta_t))$$
+
+$$
+D_{Breg}(\theta, \theta_t)=\frac{1}{n}\sum_{i=1}^{n}\ell_s(f(x_i;\theta),f(x_i;\theta_t))
+$$
+
 为了更好的炼丹，在训练过程中，还可以加入动量的想法，加入动量后的优化目标为：
-$$\theta_{t+1}=argmin_{\theta}F(\theta)+\mu D_{Breg}(\theta, \tilde{\theta_t})$$
+
+$$
+\theta_{t+1}=argmin_{\theta}F(\theta)+\mu D_{Breg}(\theta, \tilde{\theta_t})
+$$
+
 其中 $\tilde{\theta_t}=(1-\beta)\theta_t+\beta \tilde{\theta}_{t-1}$ 是指数动量平均值。$\beta \in (0, 1)$是超参。
 
 模型训练过程的伪代码如下：  

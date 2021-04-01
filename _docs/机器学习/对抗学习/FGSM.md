@@ -30,7 +30,10 @@ FGSM 全称是 Fast Gradient Sign Method，出自论文 EXPLAINING AND HARNESSIN
 简单来讲，FGSM 的想法就是在一个模型的输入样本向量 $x$ 上，加上一个噪声扰动 $\eta$，使得加了这个扰动之后，模型输出正确类标的概率 $p(y|x+\eta) < p(y|x)$，如何得到 $\eta$ 呢？就是用模型输出的损失函数对 $x$ 求偏导。
 
 形式化描述一下，对于一个以$\theta$为参数的模型，$(x,y)$为样本，其中$x$为输入向量，$y$为与$x$关联的类标，$J(\theta,x,y)$为模型的损失函数，那么 FGSM 方法求出的 $\eta$ 为
-$$\eta=\epsilon \textup{sign}(\bigtriangledown_{x}J(\theta,x,y))$$
+
+$$
+eta=\epsilon \textup{sign}(\bigtriangledown_{x}J(\theta,x,y))
+$$
 
 到底 FGSM 发生了一个什么效果，来看下面这个图。  
 ![image](https://user-images.githubusercontent.com/80689631/112847448-aaa25380-90d9-11eb-9eff-a1b2052d3fb4.png)
@@ -41,7 +44,10 @@ $$\eta=\epsilon \textup{sign}(\bigtriangledown_{x}J(\theta,x,y))$$
 特别的，对于一个线性模型，FGSM 其实就是加入了一阶范数正则化。想详细了解的可以去看看论文，论文有给公式去推到。个人觉得这里是作者让大家把对抗和模型正则化联系起来去讲解的。  
 
 最终模型训练的损失函数为为原始样本 $x$ 和对抗样本 $x+\eta$ 损失函数的 trade-off：
-$$\tilde{J}(\theta,x,y)=\alpha J(\theta,x,y) + (1-\alpha)J(\theta,x+\epsilon \textup{sign}(\bigtriangledown_{x}J(\theta,x,y)),y)$$
+
+$$
+\tilde{J}(\theta,x,y)=\alpha J(\theta,x,y) + (1-\alpha)J(\theta,x+\epsilon \textup{sign}(\bigtriangledown_{x}J(\theta,x,y)),y)
+$$
 
 ## 后续延伸
 FGSM 在$x$ 的偏导数上取符号(sign)，对于多维偏导数每个维度只看方向不看大小，后续有很论文是 FGSM 的子孙，后面逐步来讲吧~

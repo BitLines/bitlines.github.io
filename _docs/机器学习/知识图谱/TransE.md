@@ -27,7 +27,10 @@ TransE 其实用一句话就能简单描述：
 
 ## 模型介绍
 损失函数
-$$\mathcal{L}=\sum_{(h,\ell,t) \in S}{\sum_{(h',\ell,t') \in {S'_{(h,\ell,t)}}}{[\gamma + d(h+\ell,t)-d(h'+\ell,t')]_+}}$$
+
+$$
+\mathcal{L}=\sum_{(h,\ell,t) \in S}{\sum_{(h',\ell,t') \in {S'_{(h,\ell,t)}}}{[\gamma + d(h+\ell,t)-d(h'+\ell,t')]_+}}
+$$
 
 其中 $[x]\_$ 为 $max(0, x)$，$S'_{(h,l,t)}$ 表示负采样，把正确三元组中的 $h$ 或者 $t$ 进行随机替换，变成错误的三元组。
 

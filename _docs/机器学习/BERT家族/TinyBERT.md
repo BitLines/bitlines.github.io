@@ -31,7 +31,10 @@ BERT 网络结构随处可见，不再这里讲了。
 知识蒸馏最早是一种模型压缩的方案，后来逐渐也演变出一些提升模型效果的方法。知识蒸馏背后的动机是，一些带有大规模参数的复杂模型（比如 BERT） 的准确率很高，但是难以应用于实际的工业系统，原因是工业系统对计算效率要求严苛，大模型计算速度比简单模型确实慢很多。 知识蒸馏（名字也很恰当）的作用就是能否把对大模型萃取成小模型，在模型效果下降不多的前提下，是计算效率大幅度提升。  
 一般来讲（并不是所有的）知识蒸馏中有两个角色， Teacher 和 Student。Teacher 就是那个大模型，而Student就是小模型。知识蒸馏的学习目标一般是下面的形式
 
-$$  L_{KD}=\sum_{x \in X}L(f^S(x), f^T(x)),$$
+$$
+L_{KD}=\sum_{x \in X}L(f^S(x), f^T(x)),
+$$
+
 其中， $f^S(x)$ 和$f^T(x)$分别代表 Student 和 Teacher 模型的某些输出（例如隐藏层输出或者分类层输出）。
 
 
@@ -40,30 +43,46 @@ $$  L_{KD}=\sum_{x \in X}L(f^S(x), f^T(x)),$$
 ### Transformer 蒸馏
 假设 Student 网络是 M 层的 Transformer，Teacher 是 N 层的 Transformer 网络，（一般 N 大于 M，因为 Teacher 比 Student 复杂嘛），首先从 Teacher 的 N 层中选取出 M 层，和 Student 做一个映射 $n=g(m)$。再加入额外的两层：0 代表词向量层， N+1 和 M+1代表输出层。那么蒸馏的学习目标是所有层蒸馏损失函数的累加：
 
-$$ L_{model}=\sum_{x \in X}\sum_{m=0}^{M+1} \lambda_m L_{layer}(f_m^S(x), f_{g(m)}^T(x)),$$
+$$
+L_{model}=\sum_{x \in X}\sum_{m=0}^{M+1} \lambda_m L_{layer}(f_m^S(x), f_{g(m)}^T(x)),
+$$
+
 其中， $L_{layer}$ 是Transformer 某一层的损失函数，具体怎么算的稍后来讲，$f_m(x)$是Transformer第m层的输出（包括attention和隐藏单元），$\lambda_m$ 是超参。
 
 #### Transformer 层的蒸馏
 
 **注意力蒸馏**：从 Teacher 到 Student 对应层进行 Attention 的蒸馏，蒸馏的方法就是把每个注意力头全都对齐一下：
-$$L_{attn}=\frac{1}{h}\sum_{i=1}^hMSE(A_i^S,A_i^T)$$
+
+$$
+L_{attn}=\frac{1}{h}\sum_{i=1}^hMSE(A_i^S,A_i^T)
+$$
+
 其中，MSE表示最小二乘法，h表示注意力头数。
 
 **隐藏层蒸馏**：从 Teacher 到 Student 对应层的隐藏单元的蒸馏，蒸馏方法是是两个向量能够在两个空间中进行线性变换，不是直接学习的原因是 Teacher 和 Student 的隐藏层 size 并不一样：
-$$L_{hidn}=MSE(H^SW_h, H^T)$$
+
+$$
+L_{hidn}=MSE(H^SW_h, H^T)
+$$
 
 其中 $W_h$是学习的参数，所有隐藏层共用一个。
 
 #### Embedding 层的蒸馏
 Embedding 层的蒸馏和隐藏层蒸馏方法一样：
-$$L_{hidn}=MSE(E^SW_e, E^T)$$
+
+$$
+L_{hidn}=MSE(E^SW_e, E^T)
+$$
 
 其中 $W_e$是学习的参数。
 
 #### Prediction 层的蒸馏
 
 预测层的蒸馏是较常见的交叉熵：
-$$L_{pred}=CE(z^T/t,z^S/t)$$
+
+$$
+L_{pred}=CE(z^T/t,z^S/t)
+$$
 
 #### 层损失的总结
 把上述讲的几种情况汇总：  
