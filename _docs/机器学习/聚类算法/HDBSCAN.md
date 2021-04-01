@@ -24,7 +24,7 @@ HDBSCAN 全称 (Hierachical Density-Based Spatial Clustering of Applications wit
 
 ![image](https://user-images.githubusercontent.com/80689631/113087340-ffe37f80-9215-11eb-9061-0a318c37da07.png)
 
-图中，核心距离的参数k为6，蓝色圈圈、红色圈圈和绿色圈圈分别是蓝点、红点和绿点的核心距离所覆盖的范围。蓝点和绿点的相互可达距离$d_{mreach-k}($<font color='lightblue'>●</font>,<font color='green'>●</font>$)$=$max\{core_k($<font color='green'>●</font>$), core_k($<font color='lightblue'>●</font>$), d($<font color='lightblue'>●</font>$,$<font color='green'>●</font>$)\}$,=$core_k($<font color='lightblue'>●</font>$)$。
+图中，核心距离的参数k为6，蓝色圈圈、红色圈圈和绿色圈圈分别是蓝点、红点和绿点的核心距离所覆盖的范围。蓝点和绿点的相互可达距离$d_{mreach-k}($<font color='lightblue'>●</font>,<font color='green'>●</font>$)$=$max(core_k($<font color='green'>●</font>$), core_k($<font color='lightblue'>●</font>$), d($<font color='lightblue'>●</font>$,$<font color='green'>●</font>$))$,=$core_k($<font color='lightblue'>●</font>$)$。
 
 如果 $d_{mreach-MinPts}(a, b) \le \epsilon$，那么点 $a$ 和点 $a$ 都是核心对象，且点 $a$ 和点 $b$ 相互密度直达。
 
