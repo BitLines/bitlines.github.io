@@ -35,9 +35,16 @@ Mean Teacher 是一种半监督学习方法，是在方法 $\Pi$-Model 和 Tempo
 
 
 形式化描述，Student 和 Teacher 的损失函数为：
-$$J(\theta)=\mathbb{E}_{x,\eta,\eta'}[||f(x,\theta',\eta')-f(x,\theta,\eta)||^2]$$
-其中 $\theta$和$\theta'$分别是 Student 和 Teacher 的模型参数，$\eta$和$\eta'$分别是 Student 和 Teacher 的噪声扰动，Teacher 模型参数的更新方法是  
-$$\theta_t'=\alpha\theta_{t-1}'+(1-\alpha)\theta_t$$
+
+$$
+J(\theta)=\mathbb{E}_{x,\eta,\eta'}[||f(x,\theta',\eta')-f(x,\theta,\eta)||^2]
+$$
+
+其中 $\theta$和$\theta'$分别是 Student 和 Teacher 的模型参数，$\eta$和$\eta'$分别是 Student 和 Teacher 的噪声扰动，Teacher 模型参数的更新方法是
+
+$$
+\theta_t'=\alpha\theta_{t-1}'+(1-\alpha)\theta_t
+$$
 
 
 ## 实验结果
